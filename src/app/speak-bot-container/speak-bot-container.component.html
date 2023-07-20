@@ -1,0 +1,27 @@
+<div class="app-container">
+
+    <h2 id="app-name"><u>Speak Bot</u></h2>
+  
+  
+    <textarea 
+      rows="10"
+      cols="50"
+      placeholder="Response will show up here..." 
+      type="text" 
+      [value]="chatGPTResponse" 
+    ></textarea>
+    <img id="microphone-gif" *ngIf="isListeningInProgress; else notListening" src="../assets/micorphone.gif"/>
+  
+  
+    <ng-template #notListening>
+      <p>{{ listenedMsg ? 'Prompt: ' + listenedMsg : "Hit 'Speak' button and say your prompt loud and clear.." }}</p>
+    </ng-template>
+    
+    <div class="btn-grp">
+      <button (click)="askYourQuestion()">Speak</button>    
+      <button (click)="stopSpeaking()">Stop</button>
+    </div>
+  </div>
+  
+  
+  

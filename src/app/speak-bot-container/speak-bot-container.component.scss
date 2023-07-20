@@ -1,0 +1,22 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    #app-name {
+        font-size: 32px;
+        
+    }
+
+    #microphone-gif {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .btn-grp {
+        display: flex;
+        justify-content: space-evenly;
+        width: 20%;
+    }
+}
