@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Open AI Token</h2>
+<mat-dialog-content>
+    <mat-form-field class="example-full-width">
+        <mat-label>Your Open AI token: </mat-label>
+        <input [formControl]="openAIToken" matInput placeholder="Open AI token">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close color="basic">Cancel</button>
+    <button mat-button color="primary" (click)="setOpenAITokenInStorage()">Save</button>
+</mat-dialog-actions>

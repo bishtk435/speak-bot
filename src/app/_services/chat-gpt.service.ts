@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/env';
+import { StorageService } from './storage.service';
+import { ToastMsgService } from './toast-msg.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ export class ChatGptService {
   defaultModel = 'gpt-3.5-turbo';
   constructor(
     private http: HttpClient,
+    private storageService: StorageService,
+    private toastMsgService: ToastMsgService,
   ) { }
 
 
@@ -26,15 +30,24 @@ export class ChatGptService {
     };
   }
 
-  getHeaders() {
+  getHeaders(openAIToken: string) {
     return new HttpHeaders({
-      Authorization: `Bearer ${environment.OPEN_AI_KEY}`,
+      Authorization: `Bearer ${openAIToken}`,
     });
   }
 
   getPromptResponse(prompt: string, model: string = this.defaultModel, role: string = 'user') {
+    const openAITokenFromStorage = this.storageService.getOpenAIToken();
+    if(!openAITokenFromStorage) {
+      this.toastMsgService.showToastMessage(
+        "No OpenAI token found, Please add one using 'OpenAI Token' button!",
+        "Close",
+        6000,
+      );
+      return;
+    }
+    const headers = this.getHeaders(openAITokenFromStorage);
     const payload = this.getPayload(prompt, model, role);
-    const headers = this.getHeaders();
     return this.http.post(`${environment.CHAT_GPT_URL_V1}/chat/completions`, payload, { headers} );
   }
 }
