@@ -4,8 +4,7 @@
   
   
     <textarea 
-      rows="10"
-      cols="50"
+      id="chatResponse"
       placeholder="Response will show up here..." 
       type="text" 
       [value]="chatGPTResponse" 
@@ -18,8 +17,9 @@
     </ng-template>
     
     <div class="btn-grp">
-      <button (click)="askYourQuestion()">Speak</button>    
-      <button (click)="stopSpeaking()">Stop</button>
+      <button mat-flat-button color="accent" (click)="askYourQuestion()">Speak</button>    
+      <button mat-flat-button color="primary" (click)="stopSpeaking()">Stop</button>
+      <button mat-flat-button color="primary" (click)="openDialog()">OpenAI Token</button>
     </div>
   </div>
   
