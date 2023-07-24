@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { SpeechService } from '../_services/speech.service';
 import { ChatGptService } from '../_services/chat-gpt.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,13 +27,14 @@ const SpeechRecognitionEvent =
   templateUrl: './speak-bot-container.component.html',
   styleUrls: ['./speak-bot-container.component.scss']
 })
-export class SpeakBotContainerComponent {
+export class SpeakBotContainerComponent implements OnInit {
   title = 'speak-bot';
   recognition: any = new SpeechRecognition();
 
   listenedMsg: string = '';
   chatGPTResponse: string = '';
   isListeningInProgress: boolean = false;
+  isPromptFirstResp: boolean = false;
 
   constructor(
     private speechService: SpeechService,
@@ -58,30 +58,27 @@ export class SpeakBotContainerComponent {
         this.stopListening();
         this.sendPromptToChatGpt();
       }, 2000);
-    })
+    });
+
+    this.chatGPTService.updateResponse$.subscribe((resp: string) => {
+      if(this.isPromptFirstResp) {
+        this.chatGPTResponse = '';
+        this.isPromptFirstResp = false;
+      }
+
+      if(resp && typeof resp === 'string')
+        this.chatGPTResponse += resp;
+    });
+
+    this.chatGPTService.chatCompletionComplete$.subscribe((isCompleted: boolean) => {
+      if(isCompleted)
+        this.speechService.speak(this.chatGPTResponse);
+    });
   }
 
   sendPromptToChatGpt() {
-    this.chatGPTService.getPromptResponse(this.listenedMsg)?.subscribe((resp: any) => {
-      this.chatGPTResponse = resp?.choices?.[0]?.message?.content;
-      if (this.chatGPTResponse) {
-        this.speechService.speak(this.chatGPTResponse);
-      } else {
-        this.toastMsgService.showToastMessage(
-          'Some error while reading the response from chatGPT',
-          'Close',
-          5000
-        );
-      }
-    },
-      (err: any) => {
-        this.toastMsgService.showToastMessage(
-          'Some error occured in Open API call, please check network call of the browser of more info.',
-          'Close',
-          5000
-        );
-      }
-    );
+    this.isPromptFirstResp = true;
+    this.chatGPTService.getPromptResponse(this.listenedMsg);
   }
 
   updateListenedMsg(msg: string) {

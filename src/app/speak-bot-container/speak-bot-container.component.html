@@ -3,12 +3,14 @@
     <h2 id="app-name"><u>Speak Bot</u></h2>
   
   
-    <textarea 
+    <!-- <textarea 
       id="chatResponse"
-      placeholder="Response will show up here..." 
-      type="text" 
       [value]="chatGPTResponse" 
-    ></textarea>
+    ></textarea> -->
+    <div id="chatResponse">
+      <app-prompt-response [promptResponse]="chatGPTResponse"></app-prompt-response>
+    </div>
+    
     <img id="microphone-gif" *ngIf="isListeningInProgress; else notListening" src="../assets/micorphone.gif"/>
   
   
