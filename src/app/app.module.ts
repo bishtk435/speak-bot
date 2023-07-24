@@ -12,12 +12,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PromptResponseComponent } from './prompt-response/prompt-response.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpeakBotContainerComponent,
-    UpdateOpenAiTokenDialogComponent
+    UpdateOpenAiTokenDialogComponent,
+    PromptResponseComponent
   ],
   imports: [
     BrowserModule,
