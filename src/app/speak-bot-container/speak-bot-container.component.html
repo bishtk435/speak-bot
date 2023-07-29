@@ -10,17 +10,21 @@
     <div id="chatResponse">
       <app-prompt-response [promptResponse]="chatGPTResponse"></app-prompt-response>
     </div>
+
+
+    <div class="prompt-container">
+      <img id="microphone-gif" *ngIf="isListeningInProgress; else notListening" src="../assets/micorphone.gif"/>
     
-    <img id="microphone-gif" *ngIf="isListeningInProgress; else notListening" src="../assets/micorphone.gif"/>
-  
-  
-    <ng-template #notListening>
-      <p>{{ listenedMsg ? 'Prompt: ' + listenedMsg : "Hit 'Speak' button and say your prompt loud and clear.." }}</p>
-    </ng-template>
+    
+      <ng-template #notListening>
+        <p>{{ listenedMsg ? 'Prompt: ' + listenedMsg : "Hit 'Speak' button and say your prompt loud and clear.." }}</p>
+      </ng-template>
+    </div>
+    
     
     <div class="btn-grp">
       <button mat-flat-button color="accent" (click)="askYourQuestion()">Speak</button>    
-      <button mat-flat-button color="primary" (click)="stopSpeaking()">Stop</button>
+      <button mat-flat-button color="primary" (click)="changeLanguage()">Languages</button>
       <button mat-flat-button color="primary" (click)="openDialog()">OpenAI Token</button>
     </div>
   </div>

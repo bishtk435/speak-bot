@@ -1,4 +1,7 @@
 .app-container {
+    background-image: url('../../assets/bg_image.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,7 +22,7 @@
     .btn-grp {
         display: flex;
         justify-content: space-around;
-        width: 20rem;
+        width: 22rem;
     }
 
     #chatResponse {
@@ -28,6 +31,14 @@
       border: 1px solid rgb(105, 102, 102);
       overflow: auto;
       border-radius: 10px;
+    }
+
+    .prompt-container {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        margin: 0.8rem 0.2rem;
+        font-size: 1.2rem;
     }
 }
 

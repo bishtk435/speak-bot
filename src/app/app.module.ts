@@ -13,13 +13,16 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PromptResponseComponent } from './prompt-response/prompt-response.component';
+import { MatSelectModule } from '@angular/material/select';
+import { SpeechLangSelectDialogComponent } from './speech-lang-select-dialog/speech-lang-select-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpeakBotContainerComponent,
     UpdateOpenAiTokenDialogComponent,
-    PromptResponseComponent
+    PromptResponseComponent,
+    SpeechLangSelectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { PromptResponseComponent } from './prompt-response/prompt-response.compo
     MatInputModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
