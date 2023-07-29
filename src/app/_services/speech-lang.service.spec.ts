@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SpeechService } from './speech.service';
+import { SpeechLangService } from './speech-lang.service';
 
-describe('SpeechService', () => {
-  let service: SpeechService;
+describe('SpeechLangService', () => {
+  let service: SpeechLangService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SpeechService);
+    service = TestBed.inject(SpeechLangService);
   });
 
   it('should be created', () => {

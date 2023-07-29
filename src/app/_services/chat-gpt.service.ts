@@ -15,7 +15,6 @@ export class ChatGptService {
   chatCompletionComplete$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    // private http: HttpClient,
     private storageService: StorageService,
     private toastMsgService: ToastMsgService,
   ) { }

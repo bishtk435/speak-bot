@@ -1,26 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SpeechService } from '../_services/speech.service';
+import { SpeechSynthesisService } from '../_services/speech-synthesis.service';
 import { ChatGptService } from '../_services/chat-gpt.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateOpenAiTokenDialogComponent } from '../update-open-ai-token-dialog/update-open-ai-token-dialog.component';
+import { SpeechLangSelectDialogComponent } from '../speech-lang-select-dialog/speech-lang-select-dialog.component';
+import { SpeechRecognitionService } from '../_services/speech-recognition.service';
 import { ToastMsgService } from '../_services/toast-msg.service';
-declare global {
-  interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
-    SpeechGrammarList: any;
-    webkitSpeechGrammarList: any;
-    SpeechRecognitionEvent: any;
-    webkitSpeechRecognitionEvent: any;
-  }
-}
-
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
-const SpeechGrammarList =
-  window.SpeechGrammarList || window.webkitSpeechGrammarList;
-const SpeechRecognitionEvent =
-  window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
 @Component({
   selector: 'app-speak-bot-container',
@@ -29,7 +14,6 @@ const SpeechRecognitionEvent =
 })
 export class SpeakBotContainerComponent implements OnInit {
   title = 'speak-bot';
-  recognition: any = new SpeechRecognition();
 
   listenedMsg: string = '';
   chatGPTResponse: string = '';
@@ -37,27 +21,26 @@ export class SpeakBotContainerComponent implements OnInit {
   isPromptFirstResp: boolean = false;
 
   constructor(
-    private speechService: SpeechService,
+    private speechRecognitionService: SpeechRecognitionService,
+    private speechService: SpeechSynthesisService,
     private chatGPTService: ChatGptService,
     private dialog: MatDialog,
-    private toastMsgService: ToastMsgService,
-  ) {
-    this.recognition.lang = "en-US";
-    this.recognition.continuous = false;
-    this.recognition.interimResults = true;
-  }
+    private toasterMsgService: ToastMsgService
+  ) { }
 
   ngOnInit() {
-    this.recognition.onresult = (event: any) => {
-      this.updateListenedMsg(event?.results?.[0]?.[0]?.transcript);
-    };
+    this.subscribeToEvents();
+  }
 
-    this.recognition.addEventListener('audioend', () => {
-      setTimeout(() => {
-        this.isListeningInProgress = false;
-        this.stopListening();
-        this.sendPromptToChatGpt();
-      }, 2000);
+  subscribeToEvents() {
+
+    this.speechRecognitionService.speechRecognitionResultRecieved$.subscribe((msg: string) => {
+      this.updateListenedMsg(msg);
+    });
+
+    this.speechRecognitionService.speechRecognitionFinished$.subscribe(() => {
+      this.isListeningInProgress = false;
+      this.sendPromptToChatGpt();
     });
 
     this.chatGPTService.updateResponse$.subscribe((resp: string) => {
@@ -78,7 +61,15 @@ export class SpeakBotContainerComponent implements OnInit {
 
   sendPromptToChatGpt() {
     this.isPromptFirstResp = true;
-    this.chatGPTService.getPromptResponse(this.listenedMsg);
+
+    if(this.listenedMsg)
+      this.chatGPTService.getPromptResponse(this.listenedMsg);
+    else 
+      this.toasterMsgService.showToastMessage(
+        'Empty prompt are not allowed',
+        'Close',
+        3000
+      )
   }
 
   updateListenedMsg(msg: string) {
@@ -88,19 +79,20 @@ export class SpeakBotContainerComponent implements OnInit {
   askYourQuestion(): void {
     this.isListeningInProgress = true;
     this.listenedMsg = '';
-    this.recognition.start();
+    this.speechRecognitionService.startRecording();
   }
 
-  stopListening(): void {
-    this.recognition.stop();
-  }
-
-  stopSpeaking(): void {
-    this.speechService.cancel();
+  changeLanguage(): void {
+    this.dialog.open(SpeechLangSelectDialogComponent, {
+      data: {
+        hasBackdrop: false,
+        disableClose: true,
+      },
+    });
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(UpdateOpenAiTokenDialogComponent, {
+    this.dialog.open(UpdateOpenAiTokenDialogComponent, {
       data: {
         hasBackdrop: false,
         disableClose: true,
