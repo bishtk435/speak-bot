@@ -6,6 +6,8 @@ import { UpdateOpenAiTokenDialogComponent } from '../update-open-ai-token-dialog
 import { SpeechLangSelectDialogComponent } from '../speech-lang-select-dialog/speech-lang-select-dialog.component';
 import { SpeechRecognitionService } from '../_services/speech-recognition.service';
 import { ToastMsgService } from '../_services/toast-msg.service';
+import { StorageService } from '../_services/storage.service';
+import { GetNowOpenaiKeyComponent } from '../get-now-openai-key/get-now-openai-key.component';
 
 @Component({
   selector: 'app-speak-bot-container',
@@ -25,7 +27,8 @@ export class SpeakBotContainerComponent implements OnInit {
     private speechService: SpeechSynthesisService,
     private chatGPTService: ChatGptService,
     private dialog: MatDialog,
-    private toasterMsgService: ToastMsgService
+    private toasterMsgService: ToastMsgService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -77,6 +80,10 @@ export class SpeakBotContainerComponent implements OnInit {
   }
 
   askYourQuestion(): void {
+    if(!this.storageService.getOpenAIToken()) {
+      this.dialog.open(GetNowOpenaiKeyComponent);
+      return;
+    }
     this.isListeningInProgress = true;
     this.listenedMsg = '';
     this.speechRecognitionService.startRecording();
