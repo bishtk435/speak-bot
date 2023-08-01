@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Get OpenAI Key Now</h2>
+<mat-dialog-content>
+    <div class="lang-selector">
+        <p>Oops! It looks like you haven't set your OpenAI key yet. 'Speakbot' needs this key to work its magic</p>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close color="basic" (click)="closeModal()">Cancel</button>
+    <button mat-button color="primary">
+        <a target="_blank" [href]="openAIKeyUrl">Get Now</a>
+    </button>
+</mat-dialog-actions>

@@ -4,3 +4,12 @@
     padding: 1rem 1.5rem;
     font-family: 'Lumanosimo', cursive;
 }
+
+@media screen and (max-width: 730px) {
+
+    .prompt-container {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        padding: 0.5rem 0.8rem;
+    }
+}

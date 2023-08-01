@@ -14,20 +14,7 @@ export class SpeechLangService {
   ) { }
 
   private getSupportedLanguage() {
-    const voices = (this.synth?.getVoices() ?? []).sort(function (a: any, b: any) {
-      const aname = a.name.toUpperCase();
-      const bname = b.name.toUpperCase();
-  
-      if (aname < bname) {
-        return -1;
-      } else if (aname == bname) {
-        return 0;
-      } else {
-        return +1;
-      }
-    });
-
-    return voices;
+    return (this.synth?.getVoices() ?? []);
   }
 
   getSupportedLang() {

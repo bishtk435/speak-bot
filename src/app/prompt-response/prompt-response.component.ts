@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./prompt-response.component.scss']
 })
 export class PromptResponseComponent {
-
   @Input()
   promptResponse: string = '';
 
