@@ -7,5 +7,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title: string = 'Speak Bot';
+  title: string = 'Speak Bot: Voice assistant for ChatGPT';
 }

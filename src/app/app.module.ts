@@ -15,6 +15,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PromptResponseComponent } from './prompt-response/prompt-response.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SpeechLangSelectDialogComponent } from './speech-lang-select-dialog/speech-lang-select-dialog.component';
+import { GetNowOpenaiKeyComponent } from './get-now-openai-key/get-now-openai-key.component';
+import { ChatResponsePipe } from './_pipes/chat-response.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { SpeechLangSelectDialogComponent } from './speech-lang-select-dialog/spe
     SpeakBotContainerComponent,
     UpdateOpenAiTokenDialogComponent,
     PromptResponseComponent,
-    SpeechLangSelectDialogComponent
+    SpeechLangSelectDialogComponent,
+    GetNowOpenaiKeyComponent,
+    ChatResponsePipe
   ],
   imports: [
     BrowserModule,

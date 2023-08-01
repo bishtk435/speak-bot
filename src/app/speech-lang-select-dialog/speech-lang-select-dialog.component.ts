@@ -12,16 +12,7 @@ export class SpeechLangSelectDialogComponent implements OnInit {
 
   selectedLang: string = DEFAULT_SPEECH_LANG;
 
-  language: any[] = [
-    {
-      title: 'English',
-      value: 'en-US',
-    },
-    {
-      title: 'Hindi',
-      value: 'hi-IN'
-    }
-  ];
+  language: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<SpeechLangSelectDialogComponent>,
