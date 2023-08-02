@@ -1,3 +1,16 @@
 <div class="prompt-container">
-    <p innerHTML="{{promptResponse | chatResponse}}"></p>
+    <div class="response-container">
+        <ng-container *ngIf="promptResponse">
+            <p [appHighlightSpeechText]="highLightPointer" innerHTML="{{promptResponse}}"></p>
+        </ng-container>
+
+    </div>
+
+    <div *ngIf="promptResponse && !isChatResponseInProgress" class="button-container">
+        <div class="audio-controls">
+            <button *ngIf="!isResponsePlaying || isResponsePlayingPaused" class="circle-button play-button" (click)="startPlaying()">&#9654;</button>
+            <button *ngIf="isResponsePlaying && !isResponsePlayingPaused" class="circle-button pause-button" (click)="pausePlaying()">||</button>
+            <button *ngIf="isResponsePlaying" class="circle-button reset-button" (click)="resetPlaying()">&#10227;</button>
+        </div>
+    </div>  
 </div>

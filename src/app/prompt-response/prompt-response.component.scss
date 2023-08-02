@@ -3,6 +3,107 @@
     line-height: 1.5;
     padding: 1rem 1.5rem;
     font-family: 'Lumanosimo', cursive;
+    height: 92%;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    .highlight-text {
+        background-color: yellow !important;
+        color: #4476ff !important;
+    }   
+    .response-container {
+        height: 100%;
+        overflow: auto;
+        p {
+            .highlight-text {
+                background-color: yellow;
+                color: #4476ff;
+            }    
+        }
+    }
+    
+    &:hover .button-container {
+        display: flex;
+        animation-name: audioControlShowAnimation;
+        animation-iteration-count: 1;
+        animation-duration: 0.5s;
+    }
+
+    // @keyframes audioControlShowAnimation {
+    //     from {
+    //         bottom: -25%;
+    //         display: none;
+    //     }
+    //     to {
+    //         bottom: 0;
+    //         display: flex;
+    //     }
+    // }
+
+    // @keyframes audioControlHideAnimation {
+    //     from {
+    //         bottom: 0;
+    //         display: flex;
+    //     }
+    //     to {
+    //         bottom: -25%;
+    //         display: none;
+    //     }
+    // }
+
+
+    .button-container {
+        position: absolute;
+        display: flex;
+        bottom: 0;
+        justify-content: center;
+        width: 100%;
+        // animation-name: audioControlHideAnimation;
+        // animation-iteration-count: 1;
+        // animation-duration: 1s;
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            .circle-button {
+                margin: 0 1rem;
+            }
+
+            .reset-button {
+                font-size: 3rem;
+            }
+        }
+
+    }
+    
+    .pause-button {
+      font-weight: bolder;
+    }
+    
+    .circle-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: none;
+        background-color: #4476ff;
+        color: #fff;
+        font-size: 24px;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        cursor: pointer;
+    }
+    
+    .circle-button i {
+        line-height: 60px;
+    }
+    
+    .circle-button:hover {
+        background-color: #333;
+        color: #fff;
+        transform: scale(1.1);
+    }
+    
 }
 
 @media screen and (max-width: 730px) {
