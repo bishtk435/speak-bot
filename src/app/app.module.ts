@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { SpeechLangSelectDialogComponent } from './speech-lang-select-dialog/speech-lang-select-dialog.component';
 import { GetNowOpenaiKeyComponent } from './get-now-openai-key/get-now-openai-key.component';
 import { ChatResponsePipe } from './_pipes/chat-response.pipe';
+import { HighlightSpeechTextDirective } from './_directives/highlight-speech-text.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ChatResponsePipe } from './_pipes/chat-response.pipe';
     PromptResponseComponent,
     SpeechLangSelectDialogComponent,
     GetNowOpenaiKeyComponent,
-    ChatResponsePipe
+    ChatResponsePipe,
+    HighlightSpeechTextDirective
   ],
   imports: [
     BrowserModule,

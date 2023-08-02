@@ -1,12 +1,53 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SpeechSynthesisService } from '../_services/speech-synthesis.service';
+import { SpeechTextHighlightPointer } from '../_models/models';
+import { ChatGptService, ResponseStatus } from '../_services/chat-gpt.service';
 
 @Component({
   selector: 'app-prompt-response',
   templateUrl: './prompt-response.component.html',
   styleUrls: ['./prompt-response.component.scss']
 })
-export class PromptResponseComponent {
+export class PromptResponseComponent implements OnInit {
   @Input()
   promptResponse: string = '';
 
+  get isResponsePlaying(): boolean {
+    return this.speechSynthesisService.isSpeakingInProgress();
+  }
+
+  get isResponsePlayingPaused(): boolean {
+    return this.speechSynthesisService.isSpeakingPaused();
+  }
+
+  get isChatResponseInProgress(): boolean {
+    return this.chatGPTService.currentChatResponseStatus === ResponseStatus.INPROGRESS;
+  }
+
+  highLightPointer: SpeechTextHighlightPointer = {index: 0, length: 0, text: ''};
+
+  constructor(
+    private speechSynthesisService: SpeechSynthesisService,
+    private chatGPTService: ChatGptService,
+  ) {}
+
+  ngOnInit(): void {
+    this.speechSynthesisService.speechHighlightPointer.subscribe((pointer: SpeechTextHighlightPointer) => {
+      this.highLightPointer = {...pointer};
+    });
+  }
+
+  startPlaying() {
+    if(this.speechSynthesisService.isSpeakingInProgress()) this.speechSynthesisService.resume();
+    else this.speechSynthesisService.speak(this.speechSynthesisService.chatResponse);
+  }
+
+  pausePlaying() {
+    if(this.speechSynthesisService.isSpeakingInProgress())
+      this.speechSynthesisService.pause();
+  }
+
+  resetPlaying() {
+    this.speechSynthesisService.cancel();
+  }
 }
