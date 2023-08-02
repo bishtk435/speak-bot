@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SpeechLangService } from './speech-lang.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { SpeechSynthesisService } from './speech-synthesis.service';
 
 declare global {
   interface Window {
@@ -24,6 +25,7 @@ export class SpeechRecognitionService {
 
   constructor(
     private speechLangService: SpeechLangService,
+    private speechSynthesisService: SpeechSynthesisService,
   ) {
     this.recognition.lang = this.speechLangService.getCurrentLangCode();
     this.recognition.continuous = false;
@@ -86,6 +88,10 @@ export class SpeechRecognitionService {
 
   startRecording() {
     this.recognition.lang = this.speechLangService.getCurrentLangCode();
+
+    if(this.speechSynthesisService.isSpeakingInProgress())
+      this.speechSynthesisService.pause();
+
     this.recognition.start();
   }
 
