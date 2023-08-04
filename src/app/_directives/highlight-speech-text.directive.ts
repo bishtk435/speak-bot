@@ -25,10 +25,10 @@ export class HighlightSpeechTextDirective implements OnChanges {
   }
 
   updateResponse(highlightPointer: SpeechTextHighlightPointer) {
-    const args = [highlightPointer];
-    let value = args[0].text;
-    if(args && Array.isArray(args) && args.length > 0){
-      const { index, length }  = args[0] as SpeechTextHighlightPointer;
+    const args = highlightPointer;
+    let value = args?.text;
+    if(args){
+      const { index, length }  = args as SpeechTextHighlightPointer;
       if(typeof value === 'string' && this.speechSynthesisService.isSpeakingInProgress()) {
         const replacementString = 
           value.length !== index + 1 ? `<span style="background-color: yellow;">${value.slice(index, index + length)}</span>` : value.slice(index, index + length);

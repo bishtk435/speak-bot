@@ -36,9 +36,11 @@
     .prompt-container {
         display: flex;
         flex-direction: row;
+        align-items: center;
         text-align: center;
         margin: 0.8rem 0;
         font-size: 1.2rem;
+        height: 3rem;
     }
 }
 

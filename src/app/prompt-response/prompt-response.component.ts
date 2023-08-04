@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { SpeechSynthesisService } from '../_services/speech-synthesis.service';
 import { SpeechTextHighlightPointer } from '../_models/models';
 import { ChatGptService, ResponseStatus } from '../_services/chat-gpt.service';
@@ -30,6 +30,16 @@ export class PromptResponseComponent implements OnInit {
     private speechSynthesisService: SpeechSynthesisService,
     private chatGPTService: ChatGptService,
   ) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(
+      changes &&
+      changes['promptResponse'] &&
+      changes['promptResponse'].previousValue !== changes['promptResponse'].currentValue
+    ) {
+      this.highLightPointer = {index: 0, length: 0, text: changes['promptResponse'].currentValue};
+    }
+  }
 
   ngOnInit(): void {
     this.speechSynthesisService.speechHighlightPointer.subscribe((pointer: SpeechTextHighlightPointer) => {
