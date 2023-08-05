@@ -95,6 +95,14 @@ export class ChatGptService {
           lines.forEach((line) => {
             if (line !== '[DONE]') {
               const batchResponse = JSON.parse(line);
+              if(batchResponse?.error) {
+                this.toastMsgService.showToastMessage(
+                  batchResponse?.error?.message || 'Please check your OpenAI Key',
+                  'Cancel',
+                  5000
+                );
+                return;
+              }
               const batchResponseMsg = batchResponse.choices?.[0]?.delta?.content;
               if (
                 batchResponseMsg
