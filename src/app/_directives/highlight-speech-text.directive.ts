@@ -31,7 +31,7 @@ export class HighlightSpeechTextDirective implements OnChanges {
       const { index, length }  = args as SpeechTextHighlightPointer;
       if(typeof value === 'string' && this.speechSynthesisService.isSpeakingInProgress()) {
         const replacementString = 
-          value.length !== index + 1 ? `<span style="background-color: yellow;">${value.slice(index, index + length)}</span>` : value.slice(index, index + length);
+          value.length !== index + 1 ? `<span class="highlight-text">${value.slice(index, index + length)}</span>` : value.slice(index, index + length);
         const beforeSubstring = value.slice(0, index);
         const afterSubstring = value.slice(index + length);
         
