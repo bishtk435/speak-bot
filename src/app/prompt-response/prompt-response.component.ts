@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { SpeechSynthesisService } from '../_services/speech-synthesis.service';
 import { SpeechTextHighlightPointer } from '../_models/models';
 import { ChatGptService, ResponseStatus } from '../_services/chat-gpt.service';
@@ -6,7 +6,8 @@ import { ChatGptService, ResponseStatus } from '../_services/chat-gpt.service';
 @Component({
   selector: 'app-prompt-response',
   templateUrl: './prompt-response.component.html',
-  styleUrls: ['./prompt-response.component.scss']
+  styleUrls: ['./prompt-response.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PromptResponseComponent implements OnInit {
   @Input()

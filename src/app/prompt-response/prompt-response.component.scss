@@ -7,17 +7,13 @@
     position: relative;
     overflow: hidden;
     background-color: transparent;
-    .highlight-text {
-        background-color: yellow !important;
-        color: #4476ff !important;
-    }   
+     
     .response-container {
         height: 100%;
         overflow: auto;
         p {
             .highlight-text {
                 background-color: yellow;
-                color: #4476ff;
             }    
         }
     }
