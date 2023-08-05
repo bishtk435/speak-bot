@@ -48,12 +48,12 @@ export class PromptResponseComponent implements OnInit {
   }
 
   startPlaying() {
-    if(this.speechSynthesisService.isSpeakingInProgress()) this.speechSynthesisService.resume();
+    if(this.isResponsePlayingPaused) this.speechSynthesisService.resume();
     else this.speechSynthesisService.speak(this.speechSynthesisService.chatResponse);
   }
 
   pausePlaying() {
-    if(this.speechSynthesisService.isSpeakingInProgress())
+    if(this.isResponsePlaying)
       this.speechSynthesisService.pause();
   }
 

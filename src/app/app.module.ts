@@ -18,6 +18,7 @@ import { SpeechLangSelectDialogComponent } from './speech-lang-select-dialog/spe
 import { GetNowOpenaiKeyComponent } from './get-now-openai-key/get-now-openai-key.component';
 import { ChatResponsePipe } from './_pipes/chat-response.pipe';
 import { HighlightSpeechTextDirective } from './_directives/highlight-speech-text.directive';
+import { ShowCodeComponent } from './show-code/show-code.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HighlightSpeechTextDirective } from './_directives/highlight-speech-tex
     SpeechLangSelectDialogComponent,
     GetNowOpenaiKeyComponent,
     ChatResponsePipe,
-    HighlightSpeechTextDirective
+    HighlightSpeechTextDirective,
+    ShowCodeComponent
   ],
   imports: [
     BrowserModule,
